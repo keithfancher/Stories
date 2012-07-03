@@ -6,10 +6,11 @@
 
     <h1>Some stories</h1>
     <div class=metanav>
-        {% if not session.logged_in %}
-            <a href="">log in</a>
+        {% if not g.user %}
+            <a href="{{ url_for('login') }}">log in</a> | 
+            <a href="{{ url_for('register') }}">register</a>
         {% else %}
-            <a href="">log out</a>
+            <a href="{{ url_for('logout') }}">log out</a>
         {% endif %}
     </div>
 

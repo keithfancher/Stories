@@ -134,7 +134,7 @@ def register():
 @app.route('/logout')
 def logout():
     """Logs user out?!"""
-    session.pop('logged_in', None)
+    session.pop('user_id', None)
     flash('You were logged out')
     return redirect(url_for('show_stories'))
 
