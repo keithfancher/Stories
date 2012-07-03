@@ -10,8 +10,6 @@ from flask import Flask, request, session, g, redirect, url_for, \
 DATABASE = '/tmp/stories.db'
 DEBUG = True
 SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
 
 
 # create app!
