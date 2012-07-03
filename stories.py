@@ -1,3 +1,4 @@
+import time
 import sqlite3
 from contextlib import closing
 from flaskext.bcrypt import Bcrypt
@@ -71,15 +72,16 @@ def show_stories():
     return render_template('show_stories.html', stories=stories)
 
 
-#@app.route('/add', methods=['POST'])
-#def add_entry():
-#    if not session.get('logged_in'):
-#        abort(401)
-#    g.db.execute('insert into entries (title, text) values (?, ?)',
-#                 [request.form['title'], request.form['text']])
-#    g.db.commit()
-#    flash('New entry was successfully posted')
-#    return redirect(url_for('show_entries'))
+@app.route('/add', methods=['POST'])
+def add_story():
+    if not session.get('user_id'):
+        abort(401)
+    g.db.execute('''insert into stories (author_id, title, text, pub_date) 
+        values (?, ?, ?, ?)''', (session['user_id'], request.form['title'], 
+                                 request.form['text'], int(time.time())))
+    g.db.commit()
+    flash('New entry was successfully posted')
+    return redirect(url_for('show_stories'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
