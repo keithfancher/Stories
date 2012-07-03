@@ -70,6 +70,12 @@ def show_stories():
     return render_template('show_stories.html', stories=stories)
 
 
+@app.route('/<username>')
+def show_user_stories():
+    """Shows all the stories of a given username"""
+    pass
+
+
 @app.route('/add', methods=['POST'])
 def add_story():
     if not session.get('user_id'):
