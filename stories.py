@@ -71,9 +71,12 @@ def show_stories():
 
 
 @app.route('/<username>')
-def show_user_stories():
+def show_user_stories(username):
     """Shows all the stories of a given username"""
-    pass
+    cur = g.db.execute('select title, text from stories where author_id = ? order by story_id desc',
+                       [get_user_id(username)])
+    stories = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    return render_template('show_stories.html', stories=stories)
 
 
 @app.route('/add', methods=['POST'])
